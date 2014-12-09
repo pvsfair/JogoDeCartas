@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class CartasNaMao extends ConjuntoDeCartas {
 
-    ArrayList<Carta> cartas;
+    
     int maxCartas;
 
     public CartasNaMao(int maxCartas) {
@@ -29,26 +29,6 @@ public class CartasNaMao extends ConjuntoDeCartas {
     }
 
     @Override
-    public void embaralhaCartas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ordenaCartas(TipoOrd tipoOrd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void adicionaCarta(Carta carta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void retiraCarta(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean mostraCartas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -57,5 +37,10 @@ public class CartasNaMao extends ConjuntoDeCartas {
     public boolean contemCarta(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+
 
 }

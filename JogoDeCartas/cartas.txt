@@ -9,3 +9,4 @@ Agua::6::Elemental de Água::3::3::3
 Fogo::7::Elemental de Fogo::3::3::3
 Terra::8::Druida::5::5::2
 Magia::9::Portal de Fogo::3
+Neutro::10::Aquele::3::2::1
