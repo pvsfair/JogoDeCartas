@@ -1,0 +1,6 @@
+#Cartas#
+#TIPO::ID::NOME::CUSTO::VIDA::DANO#
+Neutro::1::Servo::1::3::2
+Magia::2::Invocação::2
+Fogo::3::Cão Infernal::4::5::2
+Agua::4::Splash::1::1::0
