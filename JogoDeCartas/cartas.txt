@@ -4,3 +4,8 @@ Neutro::1::Servo::1::3::2
 Magia::2::Invocação::2
 Fogo::3::Cão Infernal::4::5::2
 Agua::4::Splash::1::1::0
+Neutro::5::Sepol::2::5::1
+Agua::6::Elemental de Água::3::3::3
+Fogo::7::Elemental de Fogo::3::3::3
+Terra::8::Druida::5::5::2
+Magia::9::Portal de Fogo::3
