@@ -6,6 +6,7 @@
 package CardGame.Cartas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +33,7 @@ public abstract class ConjuntoDeCartas {
     }
 
     public void embaralhaCartas() {
-        cartas.sort(new Comparator<Carta>() {
+        Collections.sort(cartas, new Comparator<Carta>() {
 
             @Override
             public int compare(Carta o1, Carta o2) {

@@ -34,7 +34,7 @@ public class Main extends javax.swing.JFrame {
     CartasDoJogador cartasDoJogador = new CartasDoJogador();
     CartasDoJogo cartasDoJogo = new CartasDoJogo();
 
-    Usuario user = new Usuario("Paulo", cartasDoJogador, new ArrayList<>(), null, 1, 0);
+    Usuario user = new Usuario("Paulo", cartasDoJogador, new ArrayList<Deck>(), null, 1, 0);
 
     /**
      * Creates new form Main
