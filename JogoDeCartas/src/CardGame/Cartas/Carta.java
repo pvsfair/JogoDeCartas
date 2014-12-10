@@ -1,6 +1,6 @@
 package CardGame.Cartas;
 
-public class Carta {
+public abstract class Carta {
 
     protected int id;
     protected String nome;
@@ -11,6 +11,8 @@ public class Carta {
         this.nome = nome;
         this.custo = custo;
     }
+
+    public abstract void showInfo();
 
     @Override
     public String toString() {

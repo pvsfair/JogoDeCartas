@@ -6,6 +6,7 @@ import CardGame.Cartas.CartasNaMao;
 import CardGame.Cartas.ConjuntoDeCartas;
 import CardGame.Deck.Deck;
 import CardGame.Habilidades.Habilidade;
+import javax.swing.JOptionPane;
 
 public class Jogador {
 
@@ -25,6 +26,12 @@ public class Jogador {
         this.ladoDoCampo = ladoDoCampo;
     }
 
+    public void iniciarTurno(int turno) {
+        energia += ((energia <= 10) && (turno % 2 == 0)) ? 1 : 0;
+        vida += (vida < 10) ? 1 : 0;
+        comprarCarta();
+    }
+
     public boolean comprarCarta() {
         Carta carta = baralho.getCartas().remove(0);
         cartasNaMao.adicionaCarta(carta);
@@ -38,6 +45,18 @@ public class Jogador {
             }
         }
         return null;
+    }
+
+    public void jogarCartaFora(int id) {
+        cartasNaMao.retiraCarta(id);
+    }
+
+    public boolean avaliarFimTurno() {
+        if (cartasNaMao.checarMaxCartas()) {
+            JOptionPane.showMessageDialog(null, "Você tem mais de 5 cartas na mão, jogue fora ou invoque algumas para terminar o turno.");
+            return false;
+        }
+        return true;
     }
 
     public int invocarCarta(int id) {

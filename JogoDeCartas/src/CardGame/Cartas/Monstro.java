@@ -1,5 +1,7 @@
 package CardGame.Cartas;
 
+import javax.swing.JOptionPane;
+
 public abstract class Monstro extends Carta {
 
     private final int vidaMax;
@@ -12,6 +14,12 @@ public abstract class Monstro extends Carta {
         this.vida = vidaMax = vida;
         this.dano = dano;
         this.tipo = tipo;
+    }
+
+    @Override
+    public void showInfo() {
+        JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nCusto: " + custo
+                + "\nTipo: " + tipo + "\nVida: " + vidaMax + "\nDano: " + dano);
     }
 
     public abstract boolean passivaDeInvocacao();

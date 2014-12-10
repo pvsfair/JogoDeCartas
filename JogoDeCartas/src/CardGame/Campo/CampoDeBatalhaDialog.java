@@ -11,6 +11,7 @@ import CardGame.Cartas.Monstro;
 import CardGame.Usuario.Jogador;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +37,9 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         this.nomeDeckVermelho.setText(jogadorVermelho.getBaralho().getNome());
         this.numCartasDeckAzul.setText(Integer.toString(jogadorAzul.getBaralho().getCartas().size()));
         this.numCartasDeckVermelho.setText(Integer.toString(jogadorVermelho.getBaralho().getCartas().size()));
+        this.labelEnergiaAzul.setText(Integer.toString(jogadorAzul.getEnergia()));
+        this.labelEnergiaVarmelho.setText(Integer.toString(jogadorVermelho.getEnergia()));
+        this.setTitle(Integer.toString(turno));
     }
 
     private void mostrarCartasNoCampo() {
@@ -57,6 +61,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
     private void adjustCarta(JList listaCarta, Carta carta) {
         if (carta == null) {
+            listaCarta.setModel(new DefaultListModel());
             return;
         }
         DefaultListModel model = new DefaultListModel();
@@ -116,8 +121,30 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     }
 
     private void fimTurno() {
-        jogadorDaVez = ladoOposto(jogadorDaVez);
+        if (!finalizarTurnoJogadorAtual()) {
+            return;
+        }
         adjustCampos();
+        adjustLabels();
+        atualizarCartasMao(jogadorDaVez);
+    }
+
+    private void jogarCartaFora(Lado lado) {
+        if (lado == Lado.AZUL) {
+            Carta carta = (Carta) listaCartasMaoAzul.getSelectedValue();
+            if (carta == null) {
+                return;
+            }
+            jogadorAzul.jogarCartaFora(carta.getId());
+            atualizarCartasMao(lado);
+        } else {
+            Carta carta = (Carta) listaCartasMaoVermelho.getSelectedValue();
+            if (carta == null) {
+                return;
+            }
+            jogadorVermelho.jogarCartaFora(carta.getId());
+            atualizarCartasMao(lado);
+        }
     }
 
     /**
@@ -156,6 +183,10 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         jLabel5 = new javax.swing.JLabel();
         nomeDeckVermelho = new javax.swing.JLabel();
         vezVermelho = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        labelEnergiaVarmelho = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        labelVidaVermelho = new javax.swing.JLabel();
         panelAzul = new javax.swing.JPanel();
         panelCampoAzul = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -183,6 +214,10 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         jLabel4 = new javax.swing.JLabel();
         numCartasDeckAzul = new javax.swing.JLabel();
         vezAzul = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        labelEnergiaAzul = new javax.swing.JLabel();
+        labelVidaVermelho1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -203,6 +238,8 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
         cartaCampoV5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jScrollPane7.setViewportView(cartaCampoV5);
+
+        jScrollPane8.setAutoscrolls(true);
 
         cartaCampoV6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jScrollPane8.setViewportView(cartaCampoV6);
@@ -250,6 +287,11 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                 .addContainerGap())
         );
 
+        listaCartasMaoVermelho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaCartasMaoVermelhoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(listaCartasMaoVermelho);
 
         btnInvocarVermelho.setText("Invocar");
@@ -260,6 +302,11 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         });
 
         btnJogarForaVermelho.setText("Jogar Fora");
+        btnJogarForaVermelho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJogarForaVermelhoActionPerformed(evt);
+            }
+        });
 
         btnFimTurnoVermelho.setText("Finalizar Turno");
         btnFimTurnoVermelho.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +328,14 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         vezVermelho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         vezVermelho.setText("SUA VEZ");
 
+        jLabel6.setText("Energia:");
+
+        labelEnergiaVarmelho.setText("10");
+
+        jLabel9.setText("Vida:");
+
+        labelVidaVermelho.setText("10");
+
         javax.swing.GroupLayout panelVermelhoLayout = new javax.swing.GroupLayout(panelVermelho);
         panelVermelho.setLayout(panelVermelhoLayout);
         panelVermelhoLayout.setHorizontalGroup(
@@ -291,32 +346,40 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                     .addComponent(panelCampoVermelho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelVermelhoLayout.createSequentialGroup()
                         .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelVermelhoLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVermelhoLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnInvocarVermelho))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVermelhoLayout.createSequentialGroup()
                                 .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelVermelhoLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(numCartasDeckVermelho)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVermelhoLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnInvocarVermelho))
-                                    .addGroup(panelVermelhoLayout.createSequentialGroup()
-                                        .addComponent(btnFimTurnoVermelho)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnJogarForaVermelho))
-                                    .addGroup(panelVermelhoLayout.createSequentialGroup()
                                         .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
                                             .addGroup(panelVermelhoLayout.createSequentialGroup()
-                                                .addComponent(jLabel2)
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(panelVermelhoLayout.createSequentialGroup()
+                                                .addComponent(jLabel5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(numCartasDeckVermelho)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                                .addComponent(nomeDeckVermelho)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                                                .addComponent(vezVermelho)
+                                                .addGap(69, 69, 69)))
+                                        .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel6))))
+                                .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelEnergiaVarmelho)
+                                    .addComponent(labelVidaVermelho)))
                             .addGroup(panelVermelhoLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomeDeckVermelho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
-                                .addComponent(vezVermelho)
-                                .addGap(133, 133, 133)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnFimTurnoVermelho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnJogarForaVermelho)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelVermelhoLayout.setVerticalGroup(
@@ -329,12 +392,17 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                             .addComponent(btnJogarForaVermelho)
                             .addComponent(btnFimTurnoVermelho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6)
+                            .addComponent(labelEnergiaVarmelho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(nomeDeckVermelho)
-                            .addComponent(vezVermelho))
+                            .addComponent(vezVermelho)
+                            .addComponent(jLabel9)
+                            .addComponent(labelVidaVermelho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -365,7 +433,14 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         cartaCampoA4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jScrollPane14.setViewportView(cartaCampoA4);
 
+        jScrollPane15.setAutoscrolls(true);
+
         cartaCampoA7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                cartaCampoA7MouseDragged(evt);
+            }
+        });
         jScrollPane15.setViewportView(cartaCampoA7);
 
         cartaCampoA6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -411,6 +486,11 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        listaCartasMaoAzul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaCartasMaoAzulMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaCartasMaoAzul);
 
         btnInvocarAzul.setText("Invocar");
@@ -421,6 +501,11 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         });
 
         btnJogarForaAzul.setText("Jogar Fora");
+        btnJogarForaAzul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJogarForaAzulActionPerformed(evt);
+            }
+        });
 
         btnFimTurnoAzul.setText("Finalizar Turno");
         btnFimTurnoAzul.addActionListener(new java.awt.event.ActionListener() {
@@ -442,6 +527,14 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         vezAzul.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         vezAzul.setText("SUA VEZ");
 
+        jLabel8.setText("Energia:");
+
+        labelEnergiaAzul.setText("10");
+
+        labelVidaVermelho1.setText("10");
+
+        jLabel10.setText("Vida:");
+
         javax.swing.GroupLayout panelAzulLayout = new javax.swing.GroupLayout(panelAzul);
         panelAzul.setLayout(panelAzulLayout);
         panelAzulLayout.setHorizontalGroup(
@@ -451,7 +544,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                 .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelCampoAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelAzulLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAzulLayout.createSequentialGroup()
@@ -459,22 +552,35 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnFimTurnoAzul))
                             .addGroup(panelAzulLayout.createSequentialGroup()
-                                .addComponent(btnInvocarAzul)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
                                     .addGroup(panelAzulLayout.createSequentialGroup()
-                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(vezAzul)
+                                        .addGap(144, 144, 144))
+                                    .addGroup(panelAzulLayout.createSequentialGroup()
+                                        .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnInvocarAzul)
+                                            .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(labelVidaVermelho1)
+                                                .addGroup(panelAzulLayout.createSequentialGroup()
+                                                    .addComponent(jLabel8)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(labelEnergiaAzul))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAzulLayout.createSequentialGroup()
+                                        .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addGroup(panelAzulLayout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(nomeDeckAzul)))
+                                        .addGap(1, 1, 1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAzulLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nomeDeckAzul)))
-                                .addGap(1, 1, 1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAzulLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(vezAzul)
-                                .addGap(144, 144, 144)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numCartasDeckAzul)))))
+                                        .addComponent(numCartasDeckAzul)))))))
                 .addContainerGap())
         );
         panelAzulLayout.setVerticalGroup(
@@ -487,22 +593,31 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelAzulLayout.createSequentialGroup()
                         .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnInvocarAzul)
                             .addGroup(panelAzulLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
-                                    .addComponent(nomeDeckAzul))))
-                        .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nomeDeckAzul))
+                                .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelAzulLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel4)
+                                            .addComponent(numCartasDeckAzul)))
+                                    .addGroup(panelAzulLayout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(vezAzul))))
                             .addGroup(panelAzulLayout.createSequentialGroup()
+                                .addComponent(btnInvocarAzul)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(numCartasDeckAzul)))
-                            .addGroup(panelAzulLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(vezAzul)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(labelEnergiaAzul))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(labelVidaVermelho1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnJogarForaAzul)
@@ -530,10 +645,14 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
     private void btnFimTurnoAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimTurnoAzulActionPerformed
         fimTurno();
+        mostrarCartasNoCampo();
     }//GEN-LAST:event_btnFimTurnoAzulActionPerformed
 
     private void btnInvocarAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvocarAzulActionPerformed
         Carta carta = (Carta) listaCartasMaoAzul.getSelectedValue();
+        if (carta == null) {
+            return;
+        }
         if (invocarCarta(carta.getId(), Lado.AZUL)) {
             jogadorAzul.getCartasNaMao().retiraCarta(carta.getId());
         }
@@ -543,6 +662,9 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
     private void btnInvocarVermelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvocarVermelhoActionPerformed
         Carta carta = (Carta) listaCartasMaoVermelho.getSelectedValue();
+        if (carta == null) {
+            return;
+        }
         if (invocarCarta(carta.getId(), Lado.VERMELHO)) {
             jogadorVermelho.getCartasNaMao().retiraCarta(carta.getId());
         }
@@ -552,7 +674,33 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
     private void btnFimTurnoVermelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimTurnoVermelhoActionPerformed
         fimTurno();
+        mostrarCartasNoCampo();
     }//GEN-LAST:event_btnFimTurnoVermelhoActionPerformed
+
+    private void btnJogarForaVermelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJogarForaVermelhoActionPerformed
+        jogarCartaFora(Lado.VERMELHO);
+    }//GEN-LAST:event_btnJogarForaVermelhoActionPerformed
+
+    private void btnJogarForaAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJogarForaAzulActionPerformed
+        jogarCartaFora(Lado.AZUL);
+    }//GEN-LAST:event_btnJogarForaAzulActionPerformed
+
+    private void listaCartasMaoAzulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaCartasMaoAzulMouseClicked
+        if (evt.getClickCount() == 2) {
+            Carta carta = (Carta) listaCartasMaoVermelho.getSelectedValue();
+        }
+    }//GEN-LAST:event_listaCartasMaoAzulMouseClicked
+
+    private void listaCartasMaoVermelhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaCartasMaoVermelhoMouseClicked
+        if (evt.getClickCount() == 2) {
+            Carta carta = (Carta) listaCartasMaoVermelho.getSelectedValue();
+            carta.showInfo();
+        }
+    }//GEN-LAST:event_listaCartasMaoVermelhoMouseClicked
+
+    private void cartaCampoA7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA7MouseDragged
+        
+    }//GEN-LAST:event_cartaCampoA7MouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFimTurnoAzul;
@@ -576,11 +724,15 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     private javax.swing.JList cartaCampoV6;
     private javax.swing.JList cartaCampoV7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -597,6 +749,10 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JLabel labelEnergiaAzul;
+    private javax.swing.JLabel labelEnergiaVarmelho;
+    private javax.swing.JLabel labelVidaVermelho;
+    private javax.swing.JLabel labelVidaVermelho1;
     private javax.swing.JList listaCartasMaoAzul;
     private javax.swing.JList listaCartasMaoVermelho;
     private javax.swing.JLabel nomeDeckAzul;

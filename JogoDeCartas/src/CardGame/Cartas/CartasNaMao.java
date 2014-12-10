@@ -20,15 +20,11 @@ public class CartasNaMao extends ConjuntoDeCartas {
         this.maxCartas = maxCartas;
     }
 
-    public boolean avaliarFimTurno() {
-        return false;
-    }
-
-    private boolean checarMaxCartas() {
-        if (cartas.size() < maxCartas) {
-            return false;
-        } else {
+    public boolean checarMaxCartas() {
+        if (cartas.size() > maxCartas) {
             return true;
+        } else {
+            return false;
         }
     }
 

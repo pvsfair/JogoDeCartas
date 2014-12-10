@@ -21,6 +21,12 @@ public class Deck extends ConjuntoDeCartas {
         this.cartas = cartas;
     }
 
+    public Deck(Deck deck) {
+        this.id = deck.id;
+        this.nome = deck.nome;
+        this.cartas = new ArrayList<>(deck.cartas);
+    }
+
     @Override
     public String toString() {
         return id + " - " + nome + '(' + cartas.size() + ')';

@@ -60,7 +60,7 @@ public class Usuario {
     }
 
     public Jogador iniciarBatalha(Lado lado) {
-        return new Jogador(defaultDeck, null, lado);
+        return new Jogador(new Deck(defaultDeck), null, lado);
     }
 
     public CartasDoJogador getCartas() {
@@ -89,7 +89,7 @@ public class Usuario {
 
     public void setDefaultDeck(int id) {
         for (Deck baralho : baralhos) {
-            if(baralho.getId()==id){
+            if (baralho.getId() == id) {
                 defaultDeck = baralho;
                 return;
             }

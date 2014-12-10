@@ -25,6 +25,7 @@ public class CampoDeBatalha extends javax.swing.JDialog {
     protected Campo campoAzul = new Campo();
     protected Campo campoVermelho = new Campo();
     protected int turno = 1;
+    private boolean controladorTurno = false;
     protected Lado jogadorDaVez;
 
     public CampoDeBatalha(Jogador jogadorAzul, Jogador jogadorVermelho) {
@@ -42,6 +43,7 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             jogadorAzul.comprarCarta();
             jogadorVermelho.comprarCarta();
         }
+        inicarTurno();
     }
 
     protected Lado ladoOposto(Lado lado) {
@@ -70,6 +72,12 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             } else if (campoAzul.carta[6] == null) {
                 campoAzul.carta[6] = carta;
                 return true;
+            }else if(campoAzul.subirCarta(5)){
+                campoAzul.carta[5] = carta;
+                return true;
+            }else if(campoAzul.subirCarta(6)) {
+                campoAzul.carta[6] = carta;
+                return true;
             }
         } else {
             Carta carta = jogadorVermelho.pegarCarta(id);
@@ -81,28 +89,47 @@ public class CampoDeBatalha extends javax.swing.JDialog {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public boolean finalizarTurnoJogadorAtual() {
+        if (jogadorDaVez == Lado.AZUL) {
+            if (!jogadorAzul.avaliarFimTurno()) {
+                return false;
+            }
+            if (campoAzul.carta[5] != null) {
+                campoAzul.subirCarta(5);
+            }
+            if (campoAzul.carta[6] != null) {
+                campoAzul.subirCarta(6);
+            }
+        } else {
+            if (!jogadorVermelho.avaliarFimTurno()) {
+                return false;
+            }
+            if (campoVermelho.carta[5] != null) {
+                campoVermelho.subirCarta(5);
+            }
+            if (campoVermelho.carta[6] != null) {
+                campoVermelho.subirCarta(6);
+            }
+        }
+        if (controladorTurno) {
+            turno++;
+        }
+        controladorTurno = !controladorTurno;
+        jogadorDaVez = ladoOposto(jogadorDaVez);
+        inicarTurno();
         return true;
     }
 
-    public boolean remanejarCartas() {
-        return true;
-    }
-
-    public boolean subirCarta(int posicao) {
-        return true;
-    }
-
-    private int AchaMelhorCandidato(int posicao) {
-        return 0;
-    }
-
-    private boolean MoverCarta(int origem, int destino) {
-        return true;
+    public void inicarTurno() {
+        if (jogadorDaVez == Lado.AZUL) {
+            jogadorAzul.iniciarTurno(turno);
+        } else {
+            jogadorVermelho.iniciarTurno(turno);
+        }
     }
 
     public int getTurno() {
