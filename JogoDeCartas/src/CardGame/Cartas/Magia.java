@@ -10,9 +10,4 @@ public class Magia extends Carta {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return Integer.toString(getId());
-    }
-
 }

@@ -69,33 +69,57 @@ public class CriarDeck extends javax.swing.JDialog {
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TableColumnModel model = tabela.getColumnModel();
         model.getColumn(0).setPreferredWidth(56);
-        model.getColumn(1).setPreferredWidth(270);
+        model.getColumn(1).setPreferredWidth(255);
         model.getColumn(2).setPreferredWidth(162);
         model.getColumn(3).setPreferredWidth(56);
         model.getColumn(4).setPreferredWidth(56);
     }
 
     private boolean moverCarta(JTable tabelaOrigem, JTable tabelaDestino) {
-        int selectedRow = tabelaOrigem.getSelectedRow();
-        if (selectedRow == -1) {
+        if (tabelaOrigem.getSelectedRowCount() < 1) {
             return false;
-        }
-        DefaultTableModel model = (DefaultTableModel) tabelaOrigem.getModel();
-        Carta carta = (Carta) model.getValueAt(selectedRow, 0);
-        model.removeRow(selectedRow);
+        } else if (tabelaOrigem.getSelectedRowCount() == 1) {
+            int selectedRow = tabelaOrigem.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) tabelaOrigem.getModel();
+            Carta carta = (Carta) model.getValueAt(selectedRow, 1);
+            model.removeRow(selectedRow);
 
-        model = (DefaultTableModel) tabelaDestino.getModel();
-        if (carta instanceof Monstro) {
-            Monstro monstro = (Monstro) carta;
-            Object[] rowData = {monstro,
-                monstro.getNome() + '(' + monstro.getCusto() + ')', "Monstro: " + monstro.getTipo(),
-                Integer.toString(monstro.getVida()), Integer.toString(monstro.getDano())};
-            model.addRow(rowData);
-        } else if (carta instanceof Magia) {
-            Magia magia = (Magia) carta;
-            Object[] rowData = {magia,
-                magia.getNome() + '(' + magia.getCusto() + ')', "Magia", "Magia", "Magia"};
-            model.addRow(rowData);
+            model = (DefaultTableModel) tabelaDestino.getModel();
+            if (carta instanceof Monstro) {
+                Monstro monstro = (Monstro) carta;
+                Object[] rowData = {Integer.toString(monstro.getId()),
+                    monstro, "Monstro: " + monstro.getTipo(),
+                    Integer.toString(monstro.getVida()), Integer.toString(monstro.getDano())};
+                model.addRow(rowData);
+            } else if (carta instanceof Magia) {
+                Magia magia = (Magia) carta;
+                Object[] rowData = {Integer.toString(magia.getId()),
+                    magia, "Magia", "Magia", "Magia"};
+                model.addRow(rowData);
+            }
+        } else {
+            int selectedRow = tabelaOrigem.getSelectedRow();
+            int selectedRowCount = tabelaOrigem.getSelectedRowCount();
+            for (int i = 0; i < selectedRowCount; i++) {
+                DefaultTableModel model = (DefaultTableModel) tabelaOrigem.getModel();
+                Carta carta = (Carta) model.getValueAt(selectedRow, 1);
+                model.removeRow(selectedRow);
+
+                model = (DefaultTableModel) tabelaDestino.getModel();
+                if (carta instanceof Monstro) {
+                    Monstro monstro = (Monstro) carta;
+                    Object[] rowData = {Integer.toString(monstro.getId()),
+                        monstro, "Monstro: " + monstro.getTipo(),
+                        Integer.toString(monstro.getVida()), Integer.toString(monstro.getDano())};
+                    model.addRow(rowData);
+                } else if (carta instanceof Magia) {
+                    Magia magia = (Magia) carta;
+                    Object[] rowData = {Integer.toString(magia.getId()),
+                        magia, "Magia", "Magia", "Magia"};
+                    model.addRow(rowData);
+                }
+
+            }
         }
         return true;
     }
@@ -103,7 +127,7 @@ public class CriarDeck extends javax.swing.JDialog {
     private void nomearDeck() {
         do {
             nomeDeck = JOptionPane.showInputDialog("Insira o nome do Novo Deck.");
-        } while (nomeRepetido(nomeDeck));
+        } while (nomeRepetido(nomeDeck) || nomeDeck.equals(""));
     }
 
     private boolean nomeRepetido(String nome) {
@@ -142,7 +166,7 @@ public class CriarDeck extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Nome", "Tipo", "Vida", "Dano"
+                "ID", "Nome(Custo)", "Tipo", "Vida", "Dano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -166,7 +190,7 @@ public class CriarDeck extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Nome", "Tipo", "Vida", "Dano"
+                "ID", "Nome(Custo)", "Tipo", "Vida", "Dano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -308,7 +332,7 @@ public class CriarDeck extends javax.swing.JDialog {
         nomearDeck();
         ArrayList<Carta> cartas = new ArrayList<>();
         for (int i = 0; i < tabelaCartasDeck.getRowCount(); i++) {
-            cartas.add((Carta) tabelaCartasDeck.getModel().getValueAt(i, 0));
+            cartas.add((Carta) tabelaCartasDeck.getModel().getValueAt(i, 1));
         }
         deckNovo = new Deck(decksDoUsuario.size() + 1, nomeDeck, cartas);
         sucesso = true;

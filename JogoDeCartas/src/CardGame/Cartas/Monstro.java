@@ -18,11 +18,6 @@ public abstract class Monstro extends Carta {
 
     public abstract boolean passivaDeBatalha();
 
-    @Override
-    public String toString() {
-        return Integer.toString(getId());
-    }
-
     public int getVidaMax() {
         return vidaMax;
     }

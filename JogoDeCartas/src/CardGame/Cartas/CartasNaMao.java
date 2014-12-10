@@ -6,6 +6,7 @@
 package CardGame.Cartas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +14,6 @@ import java.util.ArrayList;
  */
 public class CartasNaMao extends ConjuntoDeCartas {
 
-    
     int maxCartas;
 
     public CartasNaMao(int maxCartas) {
@@ -25,7 +25,11 @@ public class CartasNaMao extends ConjuntoDeCartas {
     }
 
     private boolean checarMaxCartas() {
-        return false;
+        if (cartas.size() < maxCartas) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -37,10 +41,4 @@ public class CartasNaMao extends ConjuntoDeCartas {
     public boolean contemCarta(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public ArrayList<Carta> getCartas() {
-        return cartas;
-    }
-
-
 }

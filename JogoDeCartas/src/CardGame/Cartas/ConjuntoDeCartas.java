@@ -63,14 +63,14 @@ public abstract class ConjuntoDeCartas {
         for (Carta carta : cartas) {
             if (carta instanceof Monstro) {
                 Monstro monstro = (Monstro) carta;
-                Object[] rowData = {monstro,
-                    monstro.getNome() + '(' + monstro.getCusto() + ')', "Monstro: " + monstro.getTipo(),
+                Object[] rowData = {Integer.toString(monstro.getId()),
+                    monstro, "Monstro: " + monstro.getTipo(),
                     Integer.toString(monstro.getVida()), Integer.toString(monstro.getDano())};
                 model.addRow(rowData);
             } else if (carta instanceof Magia) {
                 Magia magia = (Magia) carta;
-                Object[] rowData = {magia,
-                    magia.getNome() + '(' + magia.getCusto() + ')', "Magia", "Magia", "Magia"};
+                Object[] rowData = {Integer.toString(magia.getId()),
+                    magia, "Magia", "Magia", "Magia"};
                 model.addRow(rowData);
             }
         }
@@ -79,4 +79,8 @@ public abstract class ConjuntoDeCartas {
     public abstract boolean mostraCartas();
 
     public abstract boolean contemCarta(int id);
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
 }

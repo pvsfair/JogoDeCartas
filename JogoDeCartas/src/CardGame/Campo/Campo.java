@@ -6,26 +6,13 @@
 package CardGame.Campo;
 
 import CardGame.Cartas.Carta;
-import CardGame.Cartas.ConjuntoDeCartas;
-import java.util.ArrayList;
 
 /**
  *
  * @author Paulo Victor
  */
-public class Campo extends ConjuntoDeCartas{
+public class Campo {
 
-    
-    @Override
-    public boolean mostraCartas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    Carta[] carta = new Carta[7];
 
-    @Override
-    public boolean contemCarta(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-    
 }

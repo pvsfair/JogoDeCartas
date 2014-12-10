@@ -41,15 +41,11 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
 //        cartas.mostraCartas();
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(2, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(3, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(4, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(5, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(6, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroFogo(7, "Batedor", 2, 4, 2));
-        cartasDoJogador.adicionaCarta(new Magia(8, "Magia Legalzinha", 2));
 
+        for (int i = 0; i < 4; i++) {
+            carregarCartasDoJogador();
+        }
+        
         user.getCartas().embaralhaCartas();
 
         initComponents();
@@ -62,6 +58,17 @@ public class Main extends javax.swing.JFrame {
         povoeTabelaCartas();
         atualizarListaDecks();
     }
+    private void carregarCartasDoJogador(){
+        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroAgua(2, "Elemental de Água", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroAgua(2, "Elemental de Água", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
+        cartasDoJogador.adicionaCarta(new MonstroFogo(3, "Batedor", 2, 4, 2));
+        cartasDoJogador.adicionaCarta(new Magia(4, "Magia Legalzinha", 2));
+        cartasDoJogador.adicionaCarta(new MonstroFogo(5, "Elemental de Fogo", 1, 3, 2));
+    }
 
     private void configuraTabela(JTable tabela) {
         tabela.setAutoCreateColumnsFromModel(false);
@@ -72,7 +79,7 @@ public class Main extends javax.swing.JFrame {
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TableColumnModel model = tabela.getColumnModel();
         model.getColumn(0).setPreferredWidth(56);
-        model.getColumn(1).setPreferredWidth(261);
+        model.getColumn(1).setPreferredWidth(246);
         model.getColumn(2).setPreferredWidth(161);
         model.getColumn(3).setPreferredWidth(56);
         model.getColumn(4).setPreferredWidth(56);
@@ -113,6 +120,13 @@ public class Main extends javax.swing.JFrame {
         }
 
         atualizarListaDecks();
+    }
+    
+    private void verCartaTabela(JTable tabela){
+        int selectedRow = tabela.getSelectedRow();
+        DefaultTableModel model = ((DefaultTableModel) tabela.getModel());
+        Carta valueAt = (Carta) model.getValueAt(selectedRow, 1);
+        JOptionPane.showMessageDialog(null, valueAt);
     }
 
     /**
@@ -167,7 +181,7 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Tipo", "Vida", "Dano"
+                "ID", "Nome(Custo)", "Tipo", "Vida", "Dano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -397,18 +411,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_sairBtnActionPerformed
 
     private void verCartaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCartaBtnActionPerformed
-        int selectedRow = tabelaCartas.getSelectedRow();
-        DefaultTableModel model = ((DefaultTableModel) tabelaCartas.getModel());
-        Carta valueAt = (Carta) model.getValueAt(selectedRow, 0);
-        JOptionPane.showMessageDialog(null, valueAt);
+        verCartaTabela(tabelaCartas);
     }//GEN-LAST:event_verCartaBtnActionPerformed
 
     private void tabelaCartasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCartasMouseClicked
         if (evt.getClickCount() == 2) {
-            int selectedRow = tabelaCartas.getSelectedRow();
-            DefaultTableModel model = ((DefaultTableModel) tabelaCartas.getModel());
-            Carta valueAt = (Carta) model.getValueAt(selectedRow, 0);
-            JOptionPane.showMessageDialog(null, valueAt);
+            verCartaTabela(tabelaCartas);
         }
     }//GEN-LAST:event_tabelaCartasMouseClicked
 
@@ -440,7 +448,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_atualizarListaBtnActionPerformed
 
     private void tabelaCartasDoJogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCartasDoJogoMouseClicked
-        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            verCartaTabela(tabelaCartasDoJogo);
+        }
     }//GEN-LAST:event_tabelaCartasDoJogoMouseClicked
 
     /**

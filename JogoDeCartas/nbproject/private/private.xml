@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Main.java</file>
+            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Cartas/ConjuntoDeCartas.java</file>
             <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Campo/Campo.java</file>
-            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Cartas/CartasDoJogo.java</file>
-            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Deck/VerDeck.java</file>
             <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Campo/CampoDeBatalhaDialog.java</file>
-            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Deck/CriarDeck.java</file>
+            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Cartas/CartasNaMao.java</file>
+            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Cartas/Carta.java</file>
             <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Campo/CampoDeBatalha.java</file>
-            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Usuario/Usuario.java</file>
+            <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Cartas/Monstro.java</file>
             <file>file:/C:/Users/Paulo%20Victor/Documents/Repositorios/JogoDeCartas/JogoDeCartas/src/CardGame/Usuario/Jogador.java</file>
         </group>
     </open-files>

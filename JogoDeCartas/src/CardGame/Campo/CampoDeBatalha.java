@@ -5,6 +5,7 @@
  */
 package CardGame.Campo;
 
+import CardGame.Cartas.Carta;
 import CardGame.Usuario.Jogador;
 import javax.swing.JDialog;
 
@@ -23,17 +24,65 @@ public class CampoDeBatalha extends javax.swing.JDialog {
     protected Jogador jogadorVermelho;
     protected Campo campoAzul = new Campo();
     protected Campo campoVermelho = new Campo();
-    protected int turno;
+    protected int turno = 1;
     protected Lado jogadorDaVez;
 
     public CampoDeBatalha(Jogador jogadorAzul, Jogador jogadorVermelho) {
         super((JDialog) null, true);
         this.jogadorAzul = jogadorAzul;
         this.jogadorVermelho = jogadorVermelho;
+        iniciarBatalha();
+    }
+
+    private void iniciarBatalha() {
+        jogadorDaVez = selecionarJogadorAleatorio();
+        jogadorAzul.getBaralho().embaralhaCartas();
+        jogadorVermelho.getBaralho().embaralhaCartas();
+        for (int i = 0; i < 5; i++) {
+            jogadorAzul.comprarCarta();
+            jogadorVermelho.comprarCarta();
+        }
+    }
+
+    protected Lado ladoOposto(Lado lado) {
+        if (lado == Lado.AZUL) {
+            return Lado.VERMELHO;
+        } else {
+            return Lado.AZUL;
+        }
+    }
+
+    private Lado selecionarJogadorAleatorio() {
+        if (Math.random() < 0.5) {
+            return Lado.AZUL;
+        } else {
+            return Lado.VERMELHO;
+        }
+
     }
 
     public boolean invocarCarta(int id, Lado lado) {
-        return true;
+        if (lado == Lado.AZUL) {
+            Carta carta = jogadorAzul.pegarCarta(id);
+            if (campoAzul.carta[5] == null) {
+                campoAzul.carta[5] = carta;
+                return true;
+            } else if (campoAzul.carta[6] == null) {
+                campoAzul.carta[6] = carta;
+                return true;
+            }
+        } else {
+            Carta carta = jogadorVermelho.pegarCarta(id);
+            if (campoVermelho.carta[5] == null) {
+                campoVermelho.carta[5] = carta;
+                return true;
+            } else if (campoVermelho.carta[6] == null) {
+                campoVermelho.carta[6] = carta;
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public boolean finalizarTurnoJogadorAtual() {

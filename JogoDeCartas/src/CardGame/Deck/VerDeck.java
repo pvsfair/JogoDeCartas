@@ -51,7 +51,7 @@ public class VerDeck extends javax.swing.JDialog {
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TableColumnModel model = tabela.getColumnModel();
         model.getColumn(0).setPreferredWidth(56);
-        model.getColumn(1).setPreferredWidth(270);
+        model.getColumn(1).setPreferredWidth(232);
         model.getColumn(2).setPreferredWidth(162);
         model.getColumn(3).setPreferredWidth(56);
         model.getColumn(4).setPreferredWidth(56);
@@ -73,13 +73,14 @@ public class VerDeck extends javax.swing.JDialog {
         numCartas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         tabelaCartasDeck.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "Tipo", "Vida", "Dano"
+                "ID", "Nome(Custo)", "Tipo", "Vida", "Dano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -145,7 +146,7 @@ public class VerDeck extends javax.swing.JDialog {
         if (evt.getClickCount() == 2) {
             int selectedRow = tabelaCartasDeck.getSelectedRow();
             DefaultTableModel model = ((DefaultTableModel) tabelaCartasDeck.getModel());
-            Carta carta = (Carta) model.getValueAt(selectedRow, 0);
+            Carta carta = (Carta) model.getValueAt(selectedRow, 1);
             JOptionPane.showMessageDialog(null, carta);
         }
     }//GEN-LAST:event_tabelaCartasDeckMouseClicked

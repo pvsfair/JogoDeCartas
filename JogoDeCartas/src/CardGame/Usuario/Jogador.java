@@ -1,6 +1,7 @@
 package CardGame.Usuario;
 
 import CardGame.Campo.CampoDeBatalha;
+import CardGame.Cartas.Carta;
 import CardGame.Cartas.CartasNaMao;
 import CardGame.Cartas.ConjuntoDeCartas;
 import CardGame.Deck.Deck;
@@ -23,16 +24,27 @@ public class Jogador {
         this.habilidade = habilidade;
         this.ladoDoCampo = ladoDoCampo;
     }
-    
-    public boolean comprarCarta(){
+
+    public boolean comprarCarta() {
+        Carta carta = baralho.getCartas().remove(0);
+        cartasNaMao.adicionaCarta(carta);
         return true;
     }
-    
-    public int invocarCarta(int id){
+
+    public Carta pegarCarta(int id) {
+        for (Carta carta : cartasNaMao.getCartas()) {
+            if (carta.getId() == id) {
+                return carta;
+            }
+        }
+        return null;
+    }
+
+    public int invocarCarta(int id) {
         return 0;
     }
-    
-    public boolean usarHabilidade(){
+
+    public boolean usarHabilidade() {
         return false;
     }
 

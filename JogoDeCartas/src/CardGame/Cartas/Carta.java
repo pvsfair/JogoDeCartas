@@ -2,9 +2,9 @@ package CardGame.Cartas;
 
 public class Carta {
 
-    private int id;
-    private String nome;
-    private int custo;
+    protected int id;
+    protected String nome;
+    protected int custo;
 
     public Carta(int id, String nome, int custo) {
         this.id = id;
@@ -14,7 +14,7 @@ public class Carta {
 
     @Override
     public String toString() {
-        return id + " - " + nome + "(" + custo + ")";
+        return nome + '(' + custo + ')';
     }
 
     public int getId() {
