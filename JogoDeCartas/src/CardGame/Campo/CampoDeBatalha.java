@@ -66,21 +66,21 @@ public class CampoDeBatalha extends javax.swing.JDialog {
     public boolean invocarCarta(int id, Lado lado) {
         if (lado == Lado.AZUL) {
             Carta carta = jogadorAzul.pegarCarta(id);
+            if (!jogadorAzul.invocarCarta(carta)) {
+                return false;
+            }
             if (campoAzul.carta[5] == null) {
                 campoAzul.carta[5] = carta;
                 return true;
             } else if (campoAzul.carta[6] == null) {
                 campoAzul.carta[6] = carta;
                 return true;
-            }else if(campoAzul.subirCarta(5)){
-                campoAzul.carta[5] = carta;
-                return true;
-            }else if(campoAzul.subirCarta(6)) {
-                campoAzul.carta[6] = carta;
-                return true;
             }
         } else {
             Carta carta = jogadorVermelho.pegarCarta(id);
+            if (!jogadorVermelho.invocarCarta(carta)) {
+                return false;
+            }
             if (campoVermelho.carta[5] == null) {
                 campoVermelho.carta[5] = carta;
                 return true;
@@ -130,6 +130,11 @@ public class CampoDeBatalha extends javax.swing.JDialog {
         } else {
             jogadorVermelho.iniciarTurno(turno);
         }
+    }
+    
+    public boolean atacar(Carta origem){
+        
+        return false;
     }
 
     public int getTurno() {

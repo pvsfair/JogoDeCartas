@@ -16,10 +16,12 @@ public class Jogador {
     private CartasNaMao cartasNaMao;
     private CampoDeBatalha.Lado ladoDoCampo;
     private int energia;
+    private int energiaMax;
 
     public Jogador(Deck baralho, Habilidade habilidade, CampoDeBatalha.Lado ladoDoCampo) {
         vida = 10;
-        energia = 1;
+        energiaMax = 1;
+        energia = energiaMax;
         cartasNaMao = new CartasNaMao(5);
         this.baralho = baralho;
         this.habilidade = habilidade;
@@ -27,7 +29,8 @@ public class Jogador {
     }
 
     public void iniciarTurno(int turno) {
-        energia += ((energia <= 10) && (turno % 2 == 0)) ? 1 : 0;
+        energiaMax += ((energiaMax <= 10) && (turno % 2 == 0)) ? 1 : 0;
+        energia = energiaMax;
         vida += (vida < 10) ? 1 : 0;
         comprarCarta();
     }
@@ -59,8 +62,14 @@ public class Jogador {
         return true;
     }
 
-    public int invocarCarta(int id) {
-        return 0;
+    public boolean invocarCarta(Carta carta) {
+        if (carta.getCusto() <= energia) {
+            energia -= carta.getCusto();
+            return true;
+        }else {
+            JOptionPane.showMessageDialog(null, "Não tem energia suficiente para invocar esta carta.");
+        }
+        return false;
     }
 
     public boolean usarHabilidade() {

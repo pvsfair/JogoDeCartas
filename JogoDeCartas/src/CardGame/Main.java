@@ -125,8 +125,8 @@ public class Main extends javax.swing.JFrame {
     private void verCartaTabela(JTable tabela){
         int selectedRow = tabela.getSelectedRow();
         DefaultTableModel model = ((DefaultTableModel) tabela.getModel());
-        Carta valueAt = (Carta) model.getValueAt(selectedRow, 1);
-        JOptionPane.showMessageDialog(null, valueAt);
+        Carta carta = (Carta) model.getValueAt(selectedRow, 1);
+        carta.showInfo();
     }
 
     /**

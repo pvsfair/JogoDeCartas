@@ -126,12 +126,14 @@
                               <Component id="labelEnergiaVarmelho" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nomeDeckVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="vezVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelVidaVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nomeDeckVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="vezVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelVidaVermelho" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -548,9 +550,9 @@
                                       <Component id="labelEnergiaAzul" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelVidaVermelho1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelVidaVermelho1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

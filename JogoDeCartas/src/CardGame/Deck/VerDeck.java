@@ -147,7 +147,7 @@ public class VerDeck extends javax.swing.JDialog {
             int selectedRow = tabelaCartasDeck.getSelectedRow();
             DefaultTableModel model = ((DefaultTableModel) tabelaCartasDeck.getModel());
             Carta carta = (Carta) model.getValueAt(selectedRow, 1);
-            JOptionPane.showMessageDialog(null, carta);
+            carta.showInfo();
         }
     }//GEN-LAST:event_tabelaCartasDeckMouseClicked
 

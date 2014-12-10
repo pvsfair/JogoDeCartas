@@ -109,14 +109,28 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
             btnFimTurnoAzul.setEnabled(enabled);
             btnInvocarAzul.setEnabled(enabled);
             btnJogarForaAzul.setEnabled(enabled);
-            listaCartasMaoAzul.setEnabled(enabled);
+            listaCartasMaoAzul.setVisible(enabled);
             vezAzul.setVisible(enabled);
+            cartaCampoA1.setEnabled(enabled);
+            cartaCampoA2.setEnabled(enabled);
+            cartaCampoA3.setEnabled(enabled);
+            cartaCampoA4.setEnabled(enabled);
+            cartaCampoA5.setEnabled(enabled);
+            cartaCampoA6.setEnabled(enabled);
+            cartaCampoA7.setEnabled(enabled);
         } else {
             btnFimTurnoVermelho.setEnabled(enabled);
             btnInvocarVermelho.setEnabled(enabled);
             btnJogarForaVermelho.setEnabled(enabled);
-            listaCartasMaoVermelho.setEnabled(enabled);
+            listaCartasMaoVermelho.setVisible(enabled);
             vezVermelho.setVisible(enabled);
+            cartaCampoV1.setEnabled(enabled);
+            cartaCampoV2.setEnabled(enabled);
+            cartaCampoV3.setEnabled(enabled);
+            cartaCampoV4.setEnabled(enabled);
+            cartaCampoV5.setEnabled(enabled);
+            cartaCampoV6.setEnabled(enabled);
+            cartaCampoV7.setEnabled(enabled);
         }
     }
 
@@ -397,12 +411,13 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                             .addComponent(jLabel6)
                             .addComponent(labelEnergiaVarmelho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(nomeDeckVermelho)
-                            .addComponent(vezVermelho)
+                        .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(labelVidaVermelho))
+                            .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(nomeDeckVermelho)
+                                .addComponent(vezVermelho)
+                                .addComponent(labelVidaVermelho)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelVermelhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -615,7 +630,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                                     .addComponent(jLabel8)
                                     .addComponent(labelEnergiaAzul))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(labelVidaVermelho1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -658,6 +673,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         }
         mostrarCartasNoCampo();
         atualizarCartasMao(Lado.AZUL);
+        adjustLabels();
     }//GEN-LAST:event_btnInvocarAzulActionPerformed
 
     private void btnInvocarVermelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvocarVermelhoActionPerformed
@@ -670,6 +686,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         }
         mostrarCartasNoCampo();
         atualizarCartasMao(Lado.VERMELHO);
+        adjustLabels();
     }//GEN-LAST:event_btnInvocarVermelhoActionPerformed
 
     private void btnFimTurnoVermelhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFimTurnoVermelhoActionPerformed
@@ -688,6 +705,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     private void listaCartasMaoAzulMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaCartasMaoAzulMouseClicked
         if (evt.getClickCount() == 2) {
             Carta carta = (Carta) listaCartasMaoVermelho.getSelectedValue();
+            carta.showInfo();
         }
     }//GEN-LAST:event_listaCartasMaoAzulMouseClicked
 
