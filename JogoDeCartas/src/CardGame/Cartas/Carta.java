@@ -12,6 +12,21 @@ public abstract class Carta {
         this.custo = custo;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Carta other = (Carta) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
     public abstract void showInfo();
 
     @Override

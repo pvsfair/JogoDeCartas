@@ -440,6 +440,11 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         jScrollPane11.setViewportView(cartaCampoA3);
 
         cartaCampoA1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA1MouseClicked(evt);
+            }
+        });
         jScrollPane12.setViewportView(cartaCampoA1);
 
         cartaCampoA2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -719,6 +724,10 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     private void cartaCampoA7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA7MouseDragged
         
     }//GEN-LAST:event_cartaCampoA7MouseDragged
+
+    private void cartaCampoA1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA1MouseClicked
+        atacar((Monstro)campoAzul.carta[0]);
+    }//GEN-LAST:event_cartaCampoA1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFimTurnoAzul;

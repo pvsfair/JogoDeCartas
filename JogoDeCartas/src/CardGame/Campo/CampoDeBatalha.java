@@ -6,8 +6,10 @@
 package CardGame.Campo;
 
 import CardGame.Cartas.Carta;
+import CardGame.Cartas.Monstro;
 import CardGame.Usuario.Jogador;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -131,9 +133,20 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             jogadorVermelho.iniciarTurno(turno);
         }
     }
-    
-    public boolean atacar(Carta origem){
-        
+
+    public boolean atacar(Monstro origem) {
+        if (jogadorDaVez == Lado.AZUL) {
+            int posicaoCarta;
+            for (posicaoCarta = 0; posicaoCarta < campoAzul.carta.length; posicaoCarta++) {
+                if (origem.equals(campoAzul.carta[posicaoCarta]));
+            }
+            String cartasAdversario = "";
+            for (int i = posicaoCarta; i <= 5; i++) {
+                cartasAdversario += campoAzul.carta[i].getNome() + " - " + ((Monstro) campoAzul.carta[i]).getVida();
+                cartasAdversario += '\n';
+            }
+            JOptionPane.showMessageDialog(null, cartasAdversario);
+        }
         return false;
     }
 
