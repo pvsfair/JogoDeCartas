@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 public class CartasDoJogo extends ConjuntoDeCartas {
 
     public CartasDoJogo() {
+        super();
         carregarDoTexto();
     }
 

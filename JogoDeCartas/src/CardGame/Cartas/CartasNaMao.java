@@ -17,7 +17,8 @@ public class CartasNaMao extends ConjuntoDeCartas {
     int maxCartas;
 
     public CartasNaMao(int maxCartas) {
-        this.maxCartas = maxCartas;
+        super();
+        this.maxCartas = (maxCartas < 5) ? 5 : maxCartas;
     }
 
     public boolean checarMaxCartas() {

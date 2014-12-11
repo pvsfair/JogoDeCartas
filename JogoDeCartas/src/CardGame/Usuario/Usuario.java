@@ -26,13 +26,14 @@ public class Usuario {
     private int nivel;
     private int experiencia;
 
-    public Usuario(String nomeUsr, CartasDoJogador cartas, ArrayList<Deck> baralhos, ArvoreHabilidades arvoreHabilidades, int nivel, int experiencia) {
-        this.nomeUsr = nomeUsr;
+    public Usuario(String nomeUsr, CartasDoJogador cartas, ArrayList<Deck> baralhos,
+            ArvoreHabilidades arvoreHabilidades, int nivel, int experiencia) {
+        this.setNomeUsr(nomeUsr);
         this.cartas = cartas;
         this.baralhos = baralhos;
         this.arvoreHabilidades = arvoreHabilidades;
-        this.nivel = nivel;
-        this.experiencia = experiencia;
+        this.nivel = (nivel <= 0) ? 1 : nivel;
+        this.experiencia = (experiencia < 0) ? 0 : experiencia;
     }
 
     public boolean montarBaralho() {
@@ -77,6 +78,10 @@ public class Usuario {
 
     public void setBaralhos(ArrayList<Deck> baralhos) {
         this.baralhos = baralhos;
+    }
+
+    private void setNomeUsr(String nomeUsr) {
+        this.nomeUsr = nomeUsr;
     }
 
     public String getNomeUsr() {

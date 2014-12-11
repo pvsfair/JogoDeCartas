@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Lab4
  */
 public abstract class ConjuntoDeCartas {
-
     protected ArrayList<Carta> cartas;
 
     public ConjuntoDeCartas() {
@@ -33,13 +32,7 @@ public abstract class ConjuntoDeCartas {
     }
 
     public void embaralhaCartas() {
-        Collections.sort(cartas, new Comparator<Carta>() {
-
-            @Override
-            public int compare(Carta o1, Carta o2) {
-                return (Math.random() > 0.5) ? 1 : -1;
-            }
-        });
+        Collections.sort(cartas);
     }
 
     public void ordenaCartas(TipoOrd tipoOrd) {

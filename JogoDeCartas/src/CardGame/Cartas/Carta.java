@@ -1,6 +1,8 @@
 package CardGame.Cartas;
 
-public abstract class Carta {
+import java.util.Random;
+
+public abstract class Carta implements Comparable<Carta> {
 
     protected int id;
     protected String nome;
@@ -13,6 +15,13 @@ public abstract class Carta {
     }
 
     @Override
+    public int compareTo(Carta o) {
+        Random rand = new Random();
+
+        return (rand.nextInt(2) == 0) ? 1 : -1;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -21,10 +30,7 @@ public abstract class Carta {
             return false;
         }
         final Carta other = (Carta) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return this.id == other.id;
     }
 
     public abstract void showInfo();

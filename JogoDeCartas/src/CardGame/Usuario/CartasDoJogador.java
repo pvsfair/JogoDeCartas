@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class CartasDoJogador extends ConjuntoDeCartas {
 
     public CartasDoJogador() {
-        
+        super();
     }
 
     public CartasDoJogador(ArrayList<Carta> cartas) {
