@@ -26,6 +26,8 @@ import java.util.logging.Logger;
  */
 public class CartasDoJogo extends ConjuntoDeCartas {
 
+    private int numCartas = 0;
+    
     public CartasDoJogo() {
         super();
         carregarDoTexto();
@@ -79,6 +81,7 @@ public class CartasDoJogo extends ConjuntoDeCartas {
                     }
                     if (carta != null) {
                         cartas.add(carta);
+                        numCartas++;
                     }
                 }
             }
@@ -96,6 +99,10 @@ public class CartasDoJogo extends ConjuntoDeCartas {
             }
         }
         return null;
+    }
+
+    public int getNumCartas() {
+        return numCartas;
     }
 
     @Override

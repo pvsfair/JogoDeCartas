@@ -65,7 +65,7 @@ public class Jogador {
         if (carta.getCusto() <= energia) {
             energia -= carta.getCusto();
             return true;
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Não tem energia suficiente para invocar esta carta.");
         }
         return false;
@@ -80,10 +80,10 @@ public class Jogador {
     }
 
     public void setVida(int vida) {
-        if(vida > 0)
         this.vida = vida;
-        else
+        if (vida <= 0) {
             JOptionPane.showMessageDialog(null, "O Jogo acabou e o jogador " + ladoDoCampo + " perdeu.");
+        }
     }
 
     public Deck getBaralho() {

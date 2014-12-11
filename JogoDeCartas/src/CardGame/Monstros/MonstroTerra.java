@@ -8,6 +8,10 @@ public class MonstroTerra extends Monstro implements ITerra {
     public MonstroTerra(int id, String nome, int custo, int vida, int dano) {
         super(id, nome, "Terra", custo, vida, dano);
     }
+    
+    public MonstroTerra(Monstro monstro){
+        super(monstro.getId(), monstro.getNome(), monstro.getTipo(), monstro.getCusto(), monstro.getVida(), monstro.getDano());
+    }
 
     @Override
     public boolean passivaDeInvocacao() {

@@ -39,6 +39,7 @@ public class CriarDeck extends javax.swing.JDialog {
     public CriarDeck(java.awt.Frame parent, boolean modal, ArrayList<Deck> decksDoUsuario) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.decksDoUsuario = decksDoUsuario;
         numCartasDeck = tabelaCartasDeck.getRowCount();
         configuraTabela(tabelaCartasUsuario);

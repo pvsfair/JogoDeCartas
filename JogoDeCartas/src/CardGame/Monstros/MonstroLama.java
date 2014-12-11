@@ -9,6 +9,10 @@ public class MonstroLama extends Monstro implements IAgua, ITerra {
     public MonstroLama(int id, String nome, int custo, int vida, int dano) {
         super(id, nome, "Lama", custo, vida, dano);
     }
+    
+    public MonstroLama(Monstro monstro){
+        super(monstro.getId(), monstro.getNome(), monstro.getTipo(), monstro.getCusto(), monstro.getVida(), monstro.getDano());
+    }
 
     @Override
     public boolean passivaDeInvocacao() {

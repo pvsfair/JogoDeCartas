@@ -136,18 +136,17 @@ public class CampoDeBatalha extends javax.swing.JDialog {
     }
 
     public boolean atacar(int posicaoCarta) {
-        posicaoCarta -= (posicaoCarta % 2 == 1) ? ((posicaoCarta != 1) ? 2 : 1) : 1;
+        int limiteAtaque = posicaoCarta;
+        limiteAtaque -= (limiteAtaque % 2 == 1) ? ((limiteAtaque != 1) ? 2 : 1) : 1;
         if (jogadorDaVez == Lado.AZUL) {
             Monstro origem = (Monstro) campoAzul.cartas[posicaoCarta];
-            System.out.println(posicaoCarta);
-            String cartasAdversario = "";
             ArrayList<Monstro> monstrosAdversarios = new ArrayList<>();
-            for (int i = posicaoCarta; i < 5; i++) {
+            for (int i = limiteAtaque; i < 5; i++) {
                 if (campoVermelho.cartas[i] != null) {
                     monstrosAdversarios.add((Monstro) campoVermelho.cartas[i]);
                 }
             }
-            //Convertendo o ArrayList em um arrayNormal
+            //Convertendo o ArrayList em um array
             if (monstrosAdversarios.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não pode atacar nenhum monstro inimigo.");
                 return false;
@@ -169,15 +168,14 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             }
         } else {
             Monstro origem = (Monstro) campoVermelho.cartas[posicaoCarta];
-            System.out.println(posicaoCarta);
             String cartasAdversario = "";
             ArrayList<Monstro> monstrosAdversarios = new ArrayList<>();
-            for (int i = posicaoCarta; i < 5; i++) {
+            for (int i = limiteAtaque; i < 5; i++) {
                 if (campoAzul.cartas[i] != null) {
                     monstrosAdversarios.add((Monstro) campoAzul.cartas[i]);
                 }
             }
-            //Convertendo o ArrayList em um arrayNormal
+            //Convertendo o ArrayList em um array
             if (monstrosAdversarios.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não pode atacar nenhum monstro inimigo.");
                 return false;

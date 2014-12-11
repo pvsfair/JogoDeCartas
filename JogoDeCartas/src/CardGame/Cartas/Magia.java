@@ -8,6 +8,10 @@ public class Magia extends Carta {
         super(id, nome, custo);
     }
 
+    public Magia(Magia magia) {
+        super(magia.getId(), magia.getNome(), magia.getCusto());
+    }
+
     public boolean Magia() {
         return true;
     }

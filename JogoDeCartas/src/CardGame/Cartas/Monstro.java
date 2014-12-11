@@ -1,5 +1,6 @@
 package CardGame.Cartas;
 
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public abstract class Monstro extends Carta {
@@ -23,7 +24,14 @@ public abstract class Monstro extends Carta {
     }
 
     public boolean atacar(Monstro alvo) {
-        alvo.vida -= this.dano;
+        Random rand = new Random();
+        if (rand.nextInt(10) == 1) {
+            alvo.vida -= (this.dano * 1.5f);
+
+            JOptionPane.showMessageDialog(null, "Você causou dano CRÍTICO!!");
+        } else {
+            alvo.vida -= this.dano;
+        }
         return alvo.vida <= 0;
     }
 

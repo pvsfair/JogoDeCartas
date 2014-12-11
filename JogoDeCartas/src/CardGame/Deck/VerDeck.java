@@ -28,6 +28,7 @@ public class VerDeck extends javax.swing.JDialog {
         super(parent, modal);
         this.deck = deck;
         initComponents();
+        this.setLocationRelativeTo(null);
         configuraTabela(tabelaCartasDeck);
     }
 

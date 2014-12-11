@@ -40,8 +40,8 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         this.labelEnergiaAzul.setText(Integer.toString(jogadorAzul.getEnergia()));
         this.labelEnergiaVarmelho.setText(Integer.toString(jogadorVermelho.getEnergia()));
         this.labelVidaVermelho.setText(Integer.toString(jogadorVermelho.getVida()));
-        this.labelEnergiaAzul.setText(Integer.toString(jogadorAzul.getVida()));
-        this.setTitle(Integer.toString(turno));
+        this.labelVidaAzul.setText(Integer.toString(jogadorAzul.getVida()));
+        this.setTitle("Turno: " + turno);
     }
 
     private void mostrarCartasNoCampo() {
@@ -596,25 +596,35 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Informações do Deck:");
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Nome:");
 
+        nomeDeckAzul.setForeground(new java.awt.Color(255, 255, 255));
         nomeDeckAzul.setText("NomeDeck2");
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cartas Restantes:");
 
+        numCartasDeckAzul.setForeground(new java.awt.Color(255, 255, 255));
         numCartasDeckAzul.setText("50");
 
         vezAzul.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        vezAzul.setForeground(new java.awt.Color(255, 255, 255));
         vezAzul.setText("SUA VEZ");
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Energia:");
 
+        labelEnergiaAzul.setForeground(new java.awt.Color(255, 255, 255));
         labelEnergiaAzul.setText("10");
 
+        labelVidaAzul.setForeground(new java.awt.Color(255, 255, 255));
         labelVidaAzul.setText("10");
 
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Vida:");
 
         javax.swing.GroupLayout panelAzulLayout = new javax.swing.GroupLayout(panelAzul);

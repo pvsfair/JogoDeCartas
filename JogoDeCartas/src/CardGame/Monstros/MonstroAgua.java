@@ -8,6 +8,10 @@ public class MonstroAgua extends Monstro implements IAgua {
     public MonstroAgua(int id, String nome, int custo, int vida, int dano) {
         super(id, nome, "Agua", custo, vida, dano);
     }
+    
+    public MonstroAgua(Monstro monstro){
+        super(monstro.getId(), monstro.getNome(), monstro.getTipo(), monstro.getCusto(), monstro.getVida(), monstro.getDano());
+    }
 
     @Override
     public boolean passivaDeInvocacao() {

@@ -8,6 +8,11 @@ public class MonstroFogo extends Monstro implements IFogo {
     public MonstroFogo(int id, String nome, int custo, int vida, int dano) {
         super(id, nome, "Fogo", custo, vida, dano);
     }
+    
+    public MonstroFogo(Monstro monstro){
+        super(monstro.getId(), monstro.getNome(), monstro.getTipo(), monstro.getCusto(), monstro.getVida(), monstro.getDano());
+    }
+
 
     @Override
     public boolean passivaDeInvocacao() {

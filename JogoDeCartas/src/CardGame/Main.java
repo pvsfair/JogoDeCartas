@@ -12,12 +12,14 @@ import CardGame.Cartas.CartasDoJogo;
 import CardGame.Deck.Deck;
 import CardGame.Cartas.Carta;
 import CardGame.Cartas.Magia;
+import CardGame.Cartas.Monstro;
 import CardGame.Deck.CriarDeck;
 import CardGame.Deck.VerDeck;
 import CardGame.Monstros.*;
 import CardGame.Usuario.CartasDoJogador;
 import CardGame.Usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -33,6 +35,7 @@ public class Main extends javax.swing.JFrame {
 
     CartasDoJogador cartasDoJogador = new CartasDoJogador();
     CartasDoJogo cartasDoJogo = new CartasDoJogo();
+    Random rand = new Random();
 
     Usuario user = new Usuario("Paulo", cartasDoJogador, new ArrayList<Deck>(), null, 1, 0);
 
@@ -42,32 +45,51 @@ public class Main extends javax.swing.JFrame {
     public Main() {
 //        cartas.mostraCartas();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 50; i++) {
             carregarCartasDoJogador();
         }
-        
+
         user.getCartas().embaralhaCartas();
 
         initComponents();
 
         this.setLocationRelativeTo(null);
-        labelNome.setText(user.getNomeUsr());
+        labelNomeTopo.setText(user.getNomeUsr());
 
         configuraTabela(tabelaCartas);
         configuraTabela(tabelaCartasDoJogo);
         povoeTabelaCartas();
         atualizarListaDecks();
+        labelInfoJogador();
     }
-    private void carregarCartasDoJogador(){
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroAgua(2, "Elemental de Água", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroAgua(2, "Elemental de Água", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroNeutro(1, "Servo", 1, 3, 2));
-        cartasDoJogador.adicionaCarta(new MonstroFogo(3, "Batedor", 2, 4, 2));
-        cartasDoJogador.adicionaCarta(new Magia(4, "Magia Legalzinha", 2));
-        cartasDoJogador.adicionaCarta(new MonstroFogo(5, "Elemental de Fogo", 1, 3, 2));
+
+    private void carregarCartasDoJogador() {
+        int aleatorio = rand.nextInt(cartasDoJogo.getNumCartas()) + 1;
+        if (cartasDoJogo.getCarta(aleatorio) instanceof Monstro) {
+            Monstro monstro = (Monstro) cartasDoJogo.getCarta(aleatorio);
+            if (monstro instanceof MonstroAgua) {
+                cartasDoJogador.adicionaCarta(new MonstroAgua((Monstro) cartasDoJogo.getCarta(aleatorio)));
+            } else if (monstro instanceof MonstroFogo) {
+                cartasDoJogador.adicionaCarta(new MonstroFogo((Monstro) cartasDoJogo.getCarta(aleatorio)));
+            } else if (monstro instanceof MonstroLama) {
+                cartasDoJogador.adicionaCarta(new MonstroLama((Monstro) cartasDoJogo.getCarta(aleatorio)));
+            } else if (monstro instanceof MonstroNeutro) {
+                cartasDoJogador.adicionaCarta(new MonstroNeutro((Monstro) cartasDoJogo.getCarta(aleatorio)));
+            } else if (monstro instanceof MonstroTerra) {
+                cartasDoJogador.adicionaCarta(new MonstroTerra((Monstro) cartasDoJogo.getCarta(aleatorio)));
+            }
+        } else if (cartasDoJogo.getCarta(aleatorio) instanceof Magia) {
+            cartasDoJogador.adicionaCarta(new Magia((Magia) cartasDoJogo.getCarta(aleatorio)));
+        }
+//        cartasDoJogador.adicionaCarta(new Monstro(cartasDoJogo.getCarta(aleatorio)));
+    }
+
+    private void labelInfoJogador() {
+        labelNomeIn.setText(user.getNomeUsr());
+        labelNumDecksIn.setText(Integer.toString(user.getBaralhos().size()));
+        labelNumCartasIn.setText(Integer.toString(user.getCartas().getCartas().size()));
+        labelNivelIn.setText(Integer.toString(user.getNivel()));
+        labelExperienciaIn.setText(Integer.toString(user.getExperiencia()));
     }
 
     private void configuraTabela(JTable tabela) {
@@ -100,6 +122,8 @@ public class Main extends javax.swing.JFrame {
             model.addElement(baralho);
         }
 
+        labelDeckPrincipal.setText((user.getDefaultDeck() != null) ? user.getDefaultDeck().toString() : "Nenhum");
+
         listaDecks.setModel(model);
     }
 
@@ -121,8 +145,8 @@ public class Main extends javax.swing.JFrame {
 
         atualizarListaDecks();
     }
-    
-    private void verCartaTabela(JTable tabela){
+
+    private void verCartaTabela(JTable tabela) {
         int selectedRow = tabela.getSelectedRow();
         DefaultTableModel model = ((DefaultTableModel) tabela.getModel());
         Carta carta = (Carta) model.getValueAt(selectedRow, 1);
@@ -152,12 +176,25 @@ public class Main extends javax.swing.JFrame {
         listaDecks = new javax.swing.JList();
         atualizarListaBtn = new javax.swing.JButton();
         editarDeckBtn = new javax.swing.JButton();
+        btnSelecionarDeck = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        labelDeckPrincipal = new javax.swing.JLabel();
         habilidades = new javax.swing.JPanel();
         infoJogador = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        labelNomeIn = new javax.swing.JLabel();
+        labelNumDecksIn = new javax.swing.JLabel();
+        labelNumCartasIn = new javax.swing.JLabel();
+        labelNivelIn = new javax.swing.JLabel();
+        labelExperienciaIn = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCartasDoJogo = new javax.swing.JTable();
-        labelNome = new javax.swing.JLabel();
+        labelNomeTopo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -173,6 +210,12 @@ public class Main extends javax.swing.JFrame {
         sairBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sairBtnActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTabbedPane5MouseReleased(evt);
             }
         });
 
@@ -265,6 +308,17 @@ public class Main extends javax.swing.JFrame {
 
         editarDeckBtn.setText("Editar Deck");
 
+        btnSelecionarDeck.setText("Selecionar Deck Primário");
+        btnSelecionarDeck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarDeckActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Deck principal:");
+
+        labelDeckPrincipal.setText("jLabel7");
+
         javax.swing.GroupLayout decksLayout = new javax.swing.GroupLayout(decks);
         decks.setLayout(decksLayout);
         decksLayout.setHorizontalGroup(
@@ -277,8 +331,13 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(verDecksBtn)
                     .addComponent(criarDeckBtn)
                     .addComponent(atualizarListaBtn)
-                    .addComponent(editarDeckBtn))
-                .addContainerGap(93, Short.MAX_VALUE))
+                    .addComponent(editarDeckBtn)
+                    .addComponent(btnSelecionarDeck)
+                    .addGroup(decksLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelDeckPrincipal)))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         decksLayout.setVerticalGroup(
             decksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +351,13 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(criarDeckBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(atualizarListaBtn))
+                        .addComponent(atualizarListaBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSelecionarDeck)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(decksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(labelDeckPrincipal)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
@@ -312,15 +377,73 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Habilidades", habilidades);
 
+        jLabel1.setText("Nome:");
+
+        jLabel2.setText("Numero de Decks:");
+
+        jLabel3.setText("Numero de Cartas:");
+
+        jLabel4.setText("Nível:");
+
+        jLabel5.setText("Experiência:");
+
+        labelNomeIn.setText("jLabel6");
+
+        labelNumDecksIn.setText("jLabel7");
+
+        labelNumCartasIn.setText("jLabel8");
+
+        labelNivelIn.setText("jLabel9");
+
+        labelExperienciaIn.setText("jLabel10");
+
         javax.swing.GroupLayout infoJogadorLayout = new javax.swing.GroupLayout(infoJogador);
         infoJogador.setLayout(infoJogadorLayout);
         infoJogadorLayout.setHorizontalGroup(
             infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 567, Short.MAX_VALUE)
+            .addGroup(infoJogadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(infoJogadorLayout.createSequentialGroup()
+                        .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelExperienciaIn)
+                            .addComponent(labelNivelIn)
+                            .addComponent(labelNumDecksIn)
+                            .addComponent(labelNomeIn)
+                            .addComponent(labelNumCartasIn))))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
         infoJogadorLayout.setVerticalGroup(
             infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGroup(infoJogadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(labelNomeIn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(labelNumDecksIn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(labelNumCartasIn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(labelNivelIn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(infoJogadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(labelExperienciaIn))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab("Informações do Jogador", infoJogador);
@@ -369,7 +492,7 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Cartas No Jogo", jPanel1);
 
-        labelNome.setText("NomeDoJogador");
+        labelNomeTopo.setText("NomeDoJogador");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -386,14 +509,14 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
                 .addGap(258, 258, 258)
-                .addComponent(labelNome)
+                .addComponent(labelNomeTopo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelNome)
+                .addComponent(labelNomeTopo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -441,6 +564,7 @@ public class Main extends javax.swing.JFrame {
             System.out.println(deckMarcado.getNome());
             VerDeck.verDeck(deckMarcado);
         }
+        atualizarListaDecks();
     }//GEN-LAST:event_verDecksBtnActionPerformed
 
     private void atualizarListaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarListaBtnActionPerformed
@@ -448,10 +572,24 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_atualizarListaBtnActionPerformed
 
     private void tabelaCartasDoJogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCartasDoJogoMouseClicked
-        if(evt.getClickCount() == 2){
+        if (evt.getClickCount() == 2) {
             verCartaTabela(tabelaCartasDoJogo);
         }
     }//GEN-LAST:event_tabelaCartasDoJogoMouseClicked
+
+    private void jTabbedPane5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane5MouseReleased
+        labelInfoJogador();
+    }//GEN-LAST:event_jTabbedPane5MouseReleased
+
+    private void btnSelecionarDeckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarDeckActionPerformed
+        Deck deck = (Deck) listaDecks.getSelectedValue();
+        if (deck == null) {
+            JOptionPane.showMessageDialog(null, "Nenhum Deck selecionado.");
+        } else {
+            user.setDefaultDeck(deck.getId());
+        }
+        atualizarListaDecks();
+    }//GEN-LAST:event_btnSelecionarDeckActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,18 +629,31 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarListaBtn;
     private javax.swing.JButton batalharBtn;
+    private javax.swing.JButton btnSelecionarDeck;
     private javax.swing.JPanel cartas;
     private javax.swing.JButton criarDeckBtn;
     private javax.swing.JPanel decks;
     private javax.swing.JButton editarDeckBtn;
     private javax.swing.JPanel habilidades;
     private javax.swing.JPanel infoJogador;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane5;
-    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelDeckPrincipal;
+    private javax.swing.JLabel labelExperienciaIn;
+    private javax.swing.JLabel labelNivelIn;
+    private javax.swing.JLabel labelNomeIn;
+    private javax.swing.JLabel labelNomeTopo;
+    private javax.swing.JLabel labelNumCartasIn;
+    private javax.swing.JLabel labelNumDecksIn;
     private javax.swing.JList listaDecks;
     private javax.swing.JButton sairBtn;
     private javax.swing.JTable tabelaCartas;
