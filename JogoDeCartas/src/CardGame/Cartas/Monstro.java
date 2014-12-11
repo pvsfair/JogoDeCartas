@@ -22,6 +22,11 @@ public abstract class Monstro extends Carta {
                 + "\nTipo: " + tipo + "\nVida: " + vidaMax + "\nDano: " + dano);
     }
 
+    public boolean atacar(Monstro alvo) {
+        alvo.vida -= this.dano;
+        return alvo.vida <= 0;
+    }
+
     public abstract boolean passivaDeInvocacao();
 
     public abstract boolean passivaDeBatalha();

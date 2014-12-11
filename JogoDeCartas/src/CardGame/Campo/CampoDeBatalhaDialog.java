@@ -39,24 +39,26 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         this.numCartasDeckVermelho.setText(Integer.toString(jogadorVermelho.getBaralho().getCartas().size()));
         this.labelEnergiaAzul.setText(Integer.toString(jogadorAzul.getEnergia()));
         this.labelEnergiaVarmelho.setText(Integer.toString(jogadorVermelho.getEnergia()));
+        this.labelVidaVermelho.setText(Integer.toString(jogadorVermelho.getVida()));
+        this.labelEnergiaAzul.setText(Integer.toString(jogadorAzul.getVida()));
         this.setTitle(Integer.toString(turno));
     }
 
     private void mostrarCartasNoCampo() {
-        adjustCarta(cartaCampoA1, campoAzul.carta[0]);
-        adjustCarta(cartaCampoA2, campoAzul.carta[1]);
-        adjustCarta(cartaCampoA3, campoAzul.carta[2]);
-        adjustCarta(cartaCampoA4, campoAzul.carta[3]);
-        adjustCarta(cartaCampoA5, campoAzul.carta[4]);
-        adjustCarta(cartaCampoA6, campoAzul.carta[5]);
-        adjustCarta(cartaCampoA7, campoAzul.carta[6]);
-        adjustCarta(cartaCampoV1, campoVermelho.carta[0]);
-        adjustCarta(cartaCampoV2, campoVermelho.carta[1]);
-        adjustCarta(cartaCampoV3, campoVermelho.carta[2]);
-        adjustCarta(cartaCampoV4, campoVermelho.carta[3]);
-        adjustCarta(cartaCampoV5, campoVermelho.carta[4]);
-        adjustCarta(cartaCampoV6, campoVermelho.carta[5]);
-        adjustCarta(cartaCampoV7, campoVermelho.carta[6]);
+        adjustCarta(cartaCampoA1, campoAzul.cartas[0]);
+        adjustCarta(cartaCampoA2, campoAzul.cartas[1]);
+        adjustCarta(cartaCampoA3, campoAzul.cartas[2]);
+        adjustCarta(cartaCampoA4, campoAzul.cartas[3]);
+        adjustCarta(cartaCampoA5, campoAzul.cartas[4]);
+        adjustCarta(cartaCampoA6, campoAzul.cartas[5]);
+        adjustCarta(cartaCampoA7, campoAzul.cartas[6]);
+        adjustCarta(cartaCampoV1, campoVermelho.cartas[0]);
+        adjustCarta(cartaCampoV2, campoVermelho.cartas[1]);
+        adjustCarta(cartaCampoV3, campoVermelho.cartas[2]);
+        adjustCarta(cartaCampoV4, campoVermelho.cartas[3]);
+        adjustCarta(cartaCampoV5, campoVermelho.cartas[4]);
+        adjustCarta(cartaCampoV6, campoVermelho.cartas[5]);
+        adjustCarta(cartaCampoV7, campoVermelho.cartas[6]);
     }
 
     private void adjustCarta(JList listaCarta, Carta carta) {
@@ -230,7 +232,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         vezAzul = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         labelEnergiaAzul = new javax.swing.JLabel();
-        labelVidaVermelho1 = new javax.swing.JLabel();
+        labelVidaAzul = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -239,26 +241,61 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         panelVermelho.setPreferredSize(new java.awt.Dimension(0, 300));
 
         cartaCampoV4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV4MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(cartaCampoV4);
 
         cartaCampoV2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV2MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(cartaCampoV2);
 
         cartaCampoV1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV1MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(cartaCampoV1);
 
         cartaCampoV3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV3MouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(cartaCampoV3);
 
         cartaCampoV5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV5MouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(cartaCampoV5);
 
         jScrollPane8.setAutoscrolls(true);
 
         cartaCampoV6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV6MouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(cartaCampoV6);
 
         cartaCampoV7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoV7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoV7MouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(cartaCampoV7);
 
         javax.swing.GroupLayout panelCampoVermelhoLayout = new javax.swing.GroupLayout(panelCampoVermelho);
@@ -434,9 +471,19 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         panelAzul.setBackground(new java.awt.Color(51, 51, 255));
 
         cartaCampoA5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA5MouseClicked(evt);
+            }
+        });
         jScrollPane10.setViewportView(cartaCampoA5);
 
         cartaCampoA3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA3MouseClicked(evt);
+            }
+        });
         jScrollPane11.setViewportView(cartaCampoA3);
 
         cartaCampoA1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -448,22 +495,37 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         jScrollPane12.setViewportView(cartaCampoA1);
 
         cartaCampoA2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA2MouseClicked(evt);
+            }
+        });
         jScrollPane13.setViewportView(cartaCampoA2);
 
         cartaCampoA4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA4MouseClicked(evt);
+            }
+        });
         jScrollPane14.setViewportView(cartaCampoA4);
 
         jScrollPane15.setAutoscrolls(true);
 
         cartaCampoA7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        cartaCampoA7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                cartaCampoA7MouseDragged(evt);
+        cartaCampoA7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA7MouseClicked(evt);
             }
         });
         jScrollPane15.setViewportView(cartaCampoA7);
 
         cartaCampoA6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cartaCampoA6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cartaCampoA6MouseClicked(evt);
+            }
+        });
         jScrollPane16.setViewportView(cartaCampoA6);
 
         javax.swing.GroupLayout panelCampoAzulLayout = new javax.swing.GroupLayout(panelCampoAzul);
@@ -551,7 +613,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
 
         labelEnergiaAzul.setText("10");
 
-        labelVidaVermelho1.setText("10");
+        labelVidaAzul.setText("10");
 
         jLabel10.setText("Vida:");
 
@@ -582,7 +644,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                                         .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnInvocarAzul)
                                             .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(labelVidaVermelho1)
+                                                .addComponent(labelVidaAzul)
                                                 .addGroup(panelAzulLayout.createSequentialGroup()
                                                     .addComponent(jLabel8)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -637,7 +699,7 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(labelVidaVermelho1))))
+                                    .addComponent(labelVidaAzul))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnJogarForaAzul)
@@ -721,13 +783,101 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
         }
     }//GEN-LAST:event_listaCartasMaoVermelhoMouseClicked
 
-    private void cartaCampoA7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA7MouseDragged
-        
-    }//GEN-LAST:event_cartaCampoA7MouseDragged
-
     private void cartaCampoA1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA1MouseClicked
-        atacar((Monstro)campoAzul.carta[0]);
+        if (evt.getClickCount() == 2 && cartaCampoA1.isEnabled()) {
+            cartaCampoA1.setEnabled(!atacar(1));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
     }//GEN-LAST:event_cartaCampoA1MouseClicked
+
+    private void cartaCampoA2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA2MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoA2.isEnabled()) {
+            cartaCampoA2.setEnabled(!atacar(2));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoA2MouseClicked
+
+    private void cartaCampoA3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA3MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoA3.isEnabled()) {
+            cartaCampoA3.setEnabled(!atacar(3));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoA3MouseClicked
+
+    private void cartaCampoA4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA4MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoA4.isEnabled()) {
+            cartaCampoA4.setEnabled(!atacar(4));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoA4MouseClicked
+
+    private void cartaCampoA5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA5MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoA5.isEnabled()) {
+            cartaCampoA5.setEnabled(!atacar(5));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoA5MouseClicked
+
+    private void cartaCampoA6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartaCampoA6MouseClicked
+
+    private void cartaCampoA7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoA7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartaCampoA7MouseClicked
+
+    private void cartaCampoV1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV1MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoV1.isEnabled()) {
+            cartaCampoV1.setEnabled(!atacar(1));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoV1MouseClicked
+
+    private void cartaCampoV2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV2MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoV2.isEnabled()) {
+            cartaCampoV2.setEnabled(!atacar(2));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoV2MouseClicked
+
+    private void cartaCampoV3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV3MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoV3.isEnabled()) {
+            cartaCampoV3.setEnabled(!atacar(3));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoV3MouseClicked
+
+    private void cartaCampoV4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV4MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoV4.isEnabled()) {
+            cartaCampoV4.setEnabled(!atacar(4));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoV4MouseClicked
+
+    private void cartaCampoV5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV5MouseClicked
+        if (evt.getClickCount() == 2 && cartaCampoV5.isEnabled()) {
+            cartaCampoV5.setEnabled(!atacar(5));
+            mostrarCartasNoCampo();
+            adjustLabels();
+        }
+    }//GEN-LAST:event_cartaCampoV5MouseClicked
+
+    private void cartaCampoV6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartaCampoV6MouseClicked
+
+    private void cartaCampoV7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaCampoV7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartaCampoV7MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFimTurnoAzul;
@@ -778,8 +928,8 @@ public class CampoDeBatalhaDialog extends CampoDeBatalha {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel labelEnergiaAzul;
     private javax.swing.JLabel labelEnergiaVarmelho;
+    private javax.swing.JLabel labelVidaAzul;
     private javax.swing.JLabel labelVidaVermelho;
-    private javax.swing.JLabel labelVidaVermelho1;
     private javax.swing.JList listaCartasMaoAzul;
     private javax.swing.JList listaCartasMaoVermelho;
     private javax.swing.JLabel nomeDeckAzul;

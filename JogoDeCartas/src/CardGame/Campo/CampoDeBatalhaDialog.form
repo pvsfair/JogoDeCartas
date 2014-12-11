@@ -219,6 +219,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV4MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -238,6 +241,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV2MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -257,6 +263,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV1MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -276,6 +285,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV3MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -295,6 +307,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV5MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -317,6 +332,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV6MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -336,6 +354,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoV7MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -474,7 +495,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="btnInvocarAzul" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                                  <Component id="labelVidaVermelho1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelVidaAzul" min="-2" max="-2" attributes="0"/>
                                                   <Group type="102" attributes="0">
                                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
@@ -552,7 +573,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelVidaVermelho1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelVidaAzul" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -634,6 +655,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA5MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -653,6 +677,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA3MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -694,6 +721,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA2MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -713,6 +743,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA4MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -736,7 +769,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA7MouseDragged"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA7MouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -757,6 +790,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cartaCampoA6MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -848,7 +884,7 @@
             <Property name="text" type="java.lang.String" value="10"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelVidaVermelho1">
+        <Component class="javax.swing.JLabel" name="labelVidaAzul">
           <Properties>
             <Property name="text" type="java.lang.String" value="10"/>
           </Properties>

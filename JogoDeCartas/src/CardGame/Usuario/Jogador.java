@@ -31,7 +31,6 @@ public class Jogador {
     public void iniciarTurno(int turno) {
         energiaMax += ((energiaMax <= 10) && (turno % 2 == 0)) ? 1 : 0;
         energia = energiaMax;
-        vida += (vida < 10) ? 1 : 0;
         comprarCarta();
     }
 
@@ -81,7 +80,10 @@ public class Jogador {
     }
 
     public void setVida(int vida) {
+        if(vida > 0)
         this.vida = vida;
+        else
+            JOptionPane.showMessageDialog(null, "O Jogo acabou e o jogador " + ladoDoCampo + " perdeu.");
     }
 
     public Deck getBaralho() {

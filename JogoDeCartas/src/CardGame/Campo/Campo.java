@@ -7,6 +7,7 @@ package CardGame.Campo;
 
 import CardGame.Cartas.Carta;
 import CardGame.Cartas.Magia;
+import CardGame.Cartas.Monstro;
 
 /**
  *
@@ -14,28 +15,50 @@ import CardGame.Cartas.Magia;
  */
 public class Campo {
 
-    Carta[] carta = new Carta[7];
+    Carta[] cartas = new Carta[7];
 
     public boolean subirCarta(int posicao) {
         int destino;
-        if (carta[posicao] == null || carta[posicao] instanceof Magia) {
+        if (cartas[posicao] == null || cartas[posicao] instanceof Magia) {
             return false;
         }
         if ((destino = AchaMelhorCandidato()) != -1) {
-            carta[destino] = carta[posicao];
-            carta[posicao] = null;
+            cartas[destino] = cartas[posicao];
+            cartas[posicao] = null;
             return true;
         }
         return false;
     }
 
     public boolean remanejarCartas() {
+        int i;
+        for (i = 0; i < cartas.length; i++) {
+            if (cartas[i] == null) {
+                break;
+            }
+        }
+        for (int j = i + 1; j < cartas.length; j++) {
+            if(cartas[j] != null && cartas[j] instanceof Monstro){
+                cartas[i] = cartas[j];
+                cartas[j] = null;
+                i++;
+            }
+        }
         return true;
     }
 
     private int AchaMelhorCandidato() {
-        for (int i = 0; i < carta.length - 2; i++) {
-            if (carta[i] == null) {
+        for (int i = 0; i < cartas.length - 2; i++) {
+            if (cartas[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getPosicaoCarta(Carta carta) {
+        for (int i = 0; i < cartas.length; i++) {
+            if (carta.equals(cartas[i])) {
                 return i;
             }
         }

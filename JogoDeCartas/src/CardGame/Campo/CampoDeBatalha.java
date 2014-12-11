@@ -8,6 +8,7 @@ package CardGame.Campo;
 import CardGame.Cartas.Carta;
 import CardGame.Cartas.Monstro;
 import CardGame.Usuario.Jogador;
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -71,11 +72,11 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             if (!jogadorAzul.invocarCarta(carta)) {
                 return false;
             }
-            if (campoAzul.carta[5] == null) {
-                campoAzul.carta[5] = carta;
+            if (campoAzul.cartas[5] == null) {
+                campoAzul.cartas[5] = carta;
                 return true;
-            } else if (campoAzul.carta[6] == null) {
-                campoAzul.carta[6] = carta;
+            } else if (campoAzul.cartas[6] == null) {
+                campoAzul.cartas[6] = carta;
                 return true;
             }
         } else {
@@ -83,11 +84,11 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             if (!jogadorVermelho.invocarCarta(carta)) {
                 return false;
             }
-            if (campoVermelho.carta[5] == null) {
-                campoVermelho.carta[5] = carta;
+            if (campoVermelho.cartas[5] == null) {
+                campoVermelho.cartas[5] = carta;
                 return true;
-            } else if (campoVermelho.carta[6] == null) {
-                campoVermelho.carta[6] = carta;
+            } else if (campoVermelho.cartas[6] == null) {
+                campoVermelho.cartas[6] = carta;
                 return true;
             }
         }
@@ -100,20 +101,20 @@ public class CampoDeBatalha extends javax.swing.JDialog {
             if (!jogadorAzul.avaliarFimTurno()) {
                 return false;
             }
-            if (campoAzul.carta[5] != null) {
+            if (campoAzul.cartas[5] != null) {
                 campoAzul.subirCarta(5);
             }
-            if (campoAzul.carta[6] != null) {
+            if (campoAzul.cartas[6] != null) {
                 campoAzul.subirCarta(6);
             }
         } else {
             if (!jogadorVermelho.avaliarFimTurno()) {
                 return false;
             }
-            if (campoVermelho.carta[5] != null) {
+            if (campoVermelho.cartas[5] != null) {
                 campoVermelho.subirCarta(5);
             }
-            if (campoVermelho.carta[6] != null) {
+            if (campoVermelho.cartas[6] != null) {
                 campoVermelho.subirCarta(6);
             }
         }
@@ -134,20 +135,70 @@ public class CampoDeBatalha extends javax.swing.JDialog {
         }
     }
 
-    public boolean atacar(Monstro origem) {
+    public boolean atacar(int posicaoCarta) {
+        posicaoCarta -= (posicaoCarta % 2 == 1) ? ((posicaoCarta != 1) ? 2 : 1) : 1;
         if (jogadorDaVez == Lado.AZUL) {
-            int posicaoCarta;
-            for (posicaoCarta = 0; posicaoCarta < campoAzul.carta.length; posicaoCarta++) {
-                if (origem.equals(campoAzul.carta[posicaoCarta]));
-            }
+            Monstro origem = (Monstro) campoAzul.cartas[posicaoCarta];
+            System.out.println(posicaoCarta);
             String cartasAdversario = "";
-            for (int i = posicaoCarta; i <= 5; i++) {
-                cartasAdversario += campoAzul.carta[i].getNome() + " - " + ((Monstro) campoAzul.carta[i]).getVida();
-                cartasAdversario += '\n';
+            ArrayList<Monstro> monstrosAdversarios = new ArrayList<>();
+            for (int i = posicaoCarta; i < 5; i++) {
+                if (campoVermelho.cartas[i] != null) {
+                    monstrosAdversarios.add((Monstro) campoVermelho.cartas[i]);
+                }
             }
-            JOptionPane.showMessageDialog(null, cartasAdversario);
+            //Convertendo o ArrayList em um arrayNormal
+            if (monstrosAdversarios.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Não pode atacar nenhum monstro inimigo.");
+                return false;
+            }
+            Monstro[] monstros = new Monstro[monstrosAdversarios.size()];
+            monstrosAdversarios.toArray(monstros);
+
+            Monstro monstroAlvo = (Monstro) JOptionPane.showInputDialog(null,
+                    "Escolha o monstro adversário a ser atacado", "ATACAR!!!",
+                    JOptionPane.INFORMATION_MESSAGE, null, monstros, monstros[0]);
+            if (origem.atacar(monstroAlvo)) {
+                campoVermelho.cartas[campoVermelho.getPosicaoCarta(monstroAlvo)] = null;
+                campoVermelho.remanejarCartas();
+                JOptionPane.showMessageDialog(null, "Você destruiu uma carta adversária!!");
+                jogadorVermelho.setVida(jogadorVermelho.getVida() - 1);
+                if (jogadorVermelho.getVida() <= 0) {
+                    dispose();
+                }
+            }
+        } else {
+            Monstro origem = (Monstro) campoVermelho.cartas[posicaoCarta];
+            System.out.println(posicaoCarta);
+            String cartasAdversario = "";
+            ArrayList<Monstro> monstrosAdversarios = new ArrayList<>();
+            for (int i = posicaoCarta; i < 5; i++) {
+                if (campoAzul.cartas[i] != null) {
+                    monstrosAdversarios.add((Monstro) campoAzul.cartas[i]);
+                }
+            }
+            //Convertendo o ArrayList em um arrayNormal
+            if (monstrosAdversarios.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Não pode atacar nenhum monstro inimigo.");
+                return false;
+            }
+            Monstro[] monstros = new Monstro[monstrosAdversarios.size()];
+            monstrosAdversarios.toArray(monstros);
+
+            Monstro monstroAlvo = (Monstro) JOptionPane.showInputDialog(null,
+                    "Escolha o monstro adversário a ser atacado", "ATACAR!!!",
+                    JOptionPane.INFORMATION_MESSAGE, null, monstros, monstros[0]);
+            if (origem.atacar(monstroAlvo)) {
+                campoAzul.cartas[campoAzul.getPosicaoCarta(monstroAlvo)] = null;
+                campoAzul.remanejarCartas();
+                JOptionPane.showMessageDialog(null, "Você destruiu uma carta adversária!!");
+                jogadorAzul.setVida(jogadorAzul.getVida() - 1);
+                if (jogadorAzul.getVida() <= 0) {
+                    dispose();
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     public int getTurno() {
